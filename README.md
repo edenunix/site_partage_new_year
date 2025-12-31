@@ -45,11 +45,11 @@ Cette page a été conçue pour :
 ## 📂 Structure du projet
 
 ```text
-📁 happy new
+📁 happy new year
 │
 ├── Untitled-1.html
 ├── logo+site.png
 ├── image_aden.jpeg
 └── README.md
 ## 🌐 Live Demo
-👉 https://TON-USERNAME.github.io/site_partage_new_year/
+👉 https://edenunix.github.io/site_partage_new_year/
