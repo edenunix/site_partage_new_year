@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>✨ Bonne Année 2026 – AdenCode ✨</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --glass: rgba(255,255,255,0.08);
+  --border: rgba(255,255,255,0.2);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Space Grotesk',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:linear-gradient(120deg,#020024,#090979,#00d4ff);
+  background-size:400% 400%;
+  animation:bgMove 12s ease infinite;
+  color:white;
+  overflow:hidden;
+}
+
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:0;
+}
+
+.container{
+  position:relative;
+  z-index:2;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.card{
+  backdrop-filter:blur(20px);
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:32px;
+  padding:45px 60px;
+  text-align:center;
+  max-width:520px;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+  animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+}
+
+/* LOGO */
+.logo{
+  width:130px;
+  margin-bottom:15px;
+  animation:logoGlow 4s infinite alternate;
+}
+
+@keyframes logoGlow{
+  from{filter:drop-shadow(0 0 8px #00d4ff)}
+  to{filter:drop-shadow(0 0 22px #00d4ff)}
+}
+
+h1{
+  font-size:3.5rem;
+  font-weight:700;
+  background:linear-gradient(90deg,#fff,#00f5ff,#fff);
+  background-size:200%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:textGlow 4s linear infinite;
+}
+
+@keyframes textGlow{
+  to{background-position:200%}
+}
+
+.subtitle{
+  margin-top:10px;
+  font-size:1.1rem;
+  opacity:.85;
+}
+
+.message{
+  margin-top:25px;
+  font-size:1rem;
+  line-height:1.6;
+  opacity:.9;
+}
+
+/* COUNTDOWN */
+.countdown{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  margin-top:30px;
+}
+
+.time-box{
+  min-width:80px;
+  padding:12px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.25);
+}
+
+.time{
+  font-size:2.1rem;
+  font-weight:700;
+}
+
+.label{
+  font-size:.7rem;
+  opacity:.7;
+  letter-spacing:1px;
+}
+
+.footer{
+  margin-top:30px;
+  font-size:.85rem;
+  opacity:.7;
+}
+
+@media(max-width:600px){
+  h1{font-size:2.6rem}
+  .card{padding:35px}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<div class="container">
+  <div class="card">
+
+    <!-- TON LOGO -->
+    <img src="logo+site.png" alt="AdenCode Logo" class="logo">
+
+    <h1>Bonne Année 2026</h1>
+    <div class="subtitle">✨ Une nouvelle page commence ✨</div>
+
+    <!-- MESSAGE DE VOEUX -->
+    <div class="message">
+      À ma <strong>famille</strong> et à mes <strong>amis</strong>,  
+      je vous souhaite une année 2026 remplie de santé,  
+      de réussite, de bonheur et de paix.  
+      Que chaque jour vous rapproche de vos rêves 🤍
+    </div>
+
+    <div class="countdown">
+      <div class="time-box">
+        <div class="time" id="days">00</div>
+        <div class="label">JOURS</div>
+      </div>
+      <div class="time-box">
+        <div class="time" id="hours">00</div>
+        <div class="label">HEURES</div>
+      </div>
+      <div class="time-box">
+        <div class="time" id="minutes">00</div>
+        <div class="label">MIN</div>
+      </div>
+      <div class="time-box">
+        <div class="time" id="seconds">00</div>
+        <div class="label">SEC</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2026 • AdenCode — Coding Tomorrow 🚀
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* COUNTDOWN */
+const target = new Date("January 1, 2026 00:00:00").getTime();
+setInterval(()=>{
+  const now = new Date().getTime();
+  const diff = target - now;
+
+  const d = Math.max(0,Math.floor(diff/(1000*60*60*24)));
+  const h = Math.max(0,Math.floor((diff%(1000*60*60*24))/(1000*60*60)));
+  const m = Math.max(0,Math.floor((diff%(1000*60*60))/(1000*60)));
+  const s = Math.max(0,Math.floor((diff%(1000*60))/1000));
+
+  days.textContent=d.toString().padStart(2,"0");
+  hours.textContent=h.toString().padStart(2,"0");
+  minutes.textContent=m.toString().padStart(2,"0");
+  seconds.textContent=s.toString().padStart(2,"0");
+},1000);
+
+/* FIREWORKS */
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+let w,h;
+function resize(){
+  w=canvas.width=window.innerWidth;
+  h=canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+class Firework{
+  constructor(){
+    this.x=Math.random()*w;
+    this.y=h;
+    this.tx=Math.random()*w;
+    this.ty=Math.random()*h/2;
+    this.p=0;
+    this.c=`hsl(${Math.random()*360},100%,60%)`;
+  }
+  draw(){
+    this.p+=0.02;
+    const x=this.x+(this.tx-this.x)*this.p;
+    const y=this.y+(this.ty-this.y)*this.p;
+    ctx.beginPath();
+    ctx.arc(x,y,2,0,Math.PI*2);
+    ctx.fillStyle=this.c;
+    ctx.fill();
+    return this.p>=1;
+  }
+}
+
+let f=[];
+(function animate(){
+  ctx.fillStyle="rgba(0,0,0,0.25)";
+  ctx.fillRect(0,0,w,h);
+  if(Math.random()<0.06) f.push(new Firework());
+  f=f.filter(x=>!x.draw());
+  requestAnimationFrame(animate);
+})();
+</script>
+
+</body>
+</html>
